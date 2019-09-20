@@ -12,7 +12,7 @@ import android.media.SoundPool.OnLoadCompleteListener;
 import android.widget.ViewAnimator;
 
 
-public class SoundsActivity extends AppCompatActivity {
+public class SoundsActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonA;
     private Button buttonBflat;
     private Button buttonB;
@@ -32,15 +32,10 @@ public class SoundsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sounds);
         wireWidgets();
-        //this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         loaded = false;
-
-        //wirewidgets();
 
         loadSoundPool();
         liamsuckssetListeners();
-
-
     }
 
     private void loadSoundPool() {
@@ -119,6 +114,14 @@ public class SoundsActivity extends AppCompatActivity {
         buttonA=findViewById(R.id.button_main_a);
         buttonB=findViewById(R.id.button_main_b);
         buttonBflat=findViewById(R.id.button_main_bflat);
+        buttonSong1=
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+
+        }
+    }
 }
