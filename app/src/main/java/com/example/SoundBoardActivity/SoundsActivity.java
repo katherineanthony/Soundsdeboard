@@ -30,9 +30,11 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private int dNote;
     private int eNote;
     private int gNote;
+    private Song stressInducingSong;
     private SoundPool soundPool;
     private boolean loaded;
     private Map<Integer,Integer> noteMap;
+    int[] notes = new int[] {gNote, gNote, dNote, dNote, eNote, dNote};
 
 
 
@@ -43,8 +45,12 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         wireWidgets();
         loaded = false;
 
+        //stressInducingSong = new Song(new int[] {gNote, gNote,dNote,dNote,eNote,dNote}, new int[] {1000,1000,1000,1000,1000,2000});
+
         loadSoundPool();
         liamsuckssetListeners();
+        //int[] notes = new int[] {gNote, gNote, dNote, dNote, eNote, dNote};
+        stressInducingSong = new Song(notes, new int[] {1000,1000,1000,1000,1000,2000});
     }
 
     private void loadSoundPool() {
@@ -62,58 +68,11 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         noteMap.put(buttonA.getId(), aNote);
         noteMap.put(buttonB.getId(), bNote);
         noteMap.put(buttonBflat.getId(), bNote);
+
     }
 
 
     private void liamsuckssetListeners() {
-        /*
-           buttonA.setOnClickListener(new View.OnClickListener() {
-           @Override
-
-        public void onClick(View view) {
-                soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                               int status) {
-                        loaded = true;
-                    }
-                });
-
-                if(loaded)
-                    soundPool.play(aNote, 1, 1, 1, 0, 1f);
-            }
-        });
-        buttonB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                               int status) {
-                        loaded = true;
-                    }
-                });
-
-                if(loaded)
-                    soundPool.play(bNote, 1, 1, 1, 0, 1f);
-            }
-        });
-        buttonBflat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
-                    @Override
-                    public void onLoadComplete(SoundPool soundPool, int sampleId,
-                                               int status) {
-                        loaded = true;
-                    }
-                });
-
-                if(loaded)
-                    soundPool.play(bflatNote, 1, 1, 1, 0, 1f);
-            }
-        });*/
-
         KeyBoardListener keyBoardListener = new KeyBoardListener();
         buttonA.setOnClickListener(keyBoardListener);
         buttonB.setOnClickListener(keyBoardListener);
@@ -141,41 +100,6 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong3 = findViewById(R.id.button_main_song3);
     }
 
-    public void stressInducingSong()
-    {
-        soundPool.play(gNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(dNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(eNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(dNote,1,1,1,1,1f);
-        delay(2000);
-        soundPool.play(cNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(bNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(aNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(gNote,1,1,1,1,1f);
-        delay(2000);
-        soundPool.play(dNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(cNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(bNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(aNote,1,1,1,1,1f);
-        delay(2000);
-        soundPool.play(dNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(cNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(bNote,1,1,1,2,1f);
-        delay(1000);
-        soundPool.play(aNote,1,1,1,1,1f);
-        delay(2000);
-    }
 
     @Override
     public void onClick(View view) {
@@ -183,21 +107,23 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         {
             case R.id.button_main_song1: {
                 if(loaded){
-                stressInducingSong();
+                    for(int n: notes){
+                        soundPool.play(stressInducingSong.getNotes(n), 1,1,1,0,1f);
+                        delay(stressInducingSong.getDelay(n));
+
+                    }
                 break;}}
-            case R.id.button_main_song2: {
-                if(loaded){
-                    thisisHalloween();
-                }
-            }
+            //case R.id.button_main_song2: {
+               //if(loaded){
+
+                //}
+            //}
             case R.id.button_main_song3: {
                 soundPool.play(bflatNote, 1, 1, 1, 0, 1f);
                 break;}
         }}
 
-    private void thisisHalloween() {
 
-    }
 
     private class KeyBoardListener implements View.OnClickListener{
 
