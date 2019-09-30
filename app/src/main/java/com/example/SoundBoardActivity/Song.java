@@ -5,6 +5,7 @@ import android.media.SoundPool;
 public class Song {
     private int[] notes;
     private int[] delay;
+    private SoundPool soundPool;
 
     public Song(int[] n, int[] delay)
     {
@@ -18,6 +19,13 @@ public class Song {
         return delay[space];
     }
 
+    private void delay(int millisDelay) {
+        try{
+            Thread.sleep(millisDelay);}
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+    }
     public int[] getDelay() {
         return delay;
     }
@@ -35,7 +43,13 @@ public class Song {
         return notes[number];
     }
 
-    public void setNotes(int[] notes) {
+    /*
+        public void setNotes(int[] notes) {
         this.notes = notes;
+        }
+        */
+
+    public int play(int space){
+        return notes[space];
     }
 }
