@@ -13,6 +13,7 @@
     <string name="main_gkey">G</string>
     <string name="main_ghsarpkey">G♯</string>
     <string name="main_song1">twinkle twinkle</string>
-    <string name="main_song2">this is halloween</string>
-    <string name="main_song3">SONG 3</string>
+    <string name="main_song2">halloween chaos</string>
+    <string name="main_song3">special note ;)</string>
+    <string name="main_scale">scale</string>
 </resources>

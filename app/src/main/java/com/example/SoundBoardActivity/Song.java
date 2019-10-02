@@ -6,12 +6,29 @@ public class Song {
     private int[] notes;
     private int[] delay;
     private SoundPool soundPool;
+    private int aNote;
+    private int bNote;
+    private int bflatNote;
+    private int cNote;
+    private int csharpNote;
+    private int dNote;
+    private int dsharpNote;
+    private int eNote;
+    private int fNote;
+    private int fsharpNote;
+    private int gNote;
+    private int gsharpNote;
 
-    public Song(int[] n, int[] delay)
+
+    public Song(int[] n, int[] d)
     {
-        this.notes = n;
-        this.delay = delay;
-
+        notes = new int[] {gNote, gNote, dNote, dNote, eNote, eNote, dNote, cNote,
+                cNote,bNote,bNote,aNote, aNote, gNote, dNote,dNote,cNote,cNote,bNote,bNote,
+                aNote,dNote, dNote,cNote,cNote,bNote,bNote,aNote,gNote,gNote,dNote,dNote,
+                eNote,eNote,dNote,cNote,cNote,bNote,bNote,aNote,aNote,gNote};
+        delay = new int[] {500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,
+                500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,500,500,500,
+                500,500,500,1000,500,500,500,500,500,500,1000};
     }
 
     public int getDelay(int space)
@@ -19,19 +36,18 @@ public class Song {
         return delay[space];
     }
 
-    private void delay(int millisDelay) {
-        try{
-            Thread.sleep(millisDelay);}
-        catch (InterruptedException e){
-            e.printStackTrace();
-        }
-    }
     public int[] getDelay() {
         return delay;
     }
 
     public void setDelay(int[] delay) {
         this.delay = delay;
+    }
+
+    public void setNotes(int n)
+    {
+        int x = notes.length;
+        notes[x] = n;
     }
 
     public int[] getNotes()
@@ -41,15 +57,5 @@ public class Song {
 
     public int getNotes(int number) {
         return notes[number];
-    }
-
-    /*
-        public void setNotes(int[] notes) {
-        this.notes = notes;
-        }
-        */
-
-    public int play(int space){
-        return notes[space];
     }
 }

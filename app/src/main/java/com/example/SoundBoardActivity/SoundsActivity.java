@@ -32,6 +32,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong1;
     private Button buttonSong2;
     private Button buttonSong3;
+    private Button buttonScale;
     private int aNote;
     private int bNote;
     private int bflatNote;
@@ -44,13 +45,17 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private int fsharpNote;
     private int gNote;
     private int gsharpNote;
-    private Song stressInducingSong;
+
     private SoundPool soundPool;
     private boolean loaded;
     private Map<Integer,Integer> noteMap;
-    int[] stressInducingNotes = new int[] {gNote, gNote, dNote, dNote, eNote, dNote};
-    int[] stressInducingDelays = new int[] {1000,1000,1000,1000,1000,2000};
-
+    private int[] stressInducingNotes;
+    private int[] stressInducingDelays;
+    private Song stressInducingSong;
+    private int[] thisIsHalloweenNotes;
+    private int[] thisIsHalloweenDelays;
+    private Song thisIsHalloween;
+    private int[] notes;
 
 
     @Override
@@ -61,9 +66,23 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         loaded = false;
 
         loadSoundPool();
+        stressInducingNotes = new int[] {gNote, gNote, dNote, dNote, eNote, eNote, dNote, cNote,
+                cNote,bNote,bNote,aNote, aNote, gNote, dNote,dNote,cNote,cNote,bNote,bNote,
+                aNote,dNote, dNote,cNote,cNote,bNote,bNote,aNote,gNote,gNote,dNote,dNote,
+                eNote,eNote,dNote,cNote,cNote,bNote,bNote,aNote,aNote,gNote};
+        stressInducingDelays = new int[] {500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,
+                500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,500,500,500,
+                500,500,500,1000,500,500,500,500,500,500,1000};
+        stressInducingSong = new Song(stressInducingNotes,stressInducingDelays);
+        thisIsHalloweenNotes = new int[] {gsharpNote,gsharpNote,gsharpNote,gNote,fNote,gsharpNote,
+                gsharpNote, gsharpNote,gNote,fNote, dNote,csharpNote, bNote, dNote, csharpNote,
+                bNote,bflatNote,aNote,gNote,bflatNote,aNote,gNote};
+        thisIsHalloweenDelays = new int[] {500, 500, 150,150,150, 500,500, 150,150,300,150,150,
+                250,150,150,250,150,150,250,150,150,150};
+        thisIsHalloween = new Song(thisIsHalloweenNotes,thisIsHalloweenDelays);
+        notes = new int[] {aNote,bflatNote,bNote,cNote,csharpNote,dNote,dsharpNote,eNote,fNote,
+                fsharpNote,gNote,gsharpNote};
         setListeners();
-        //int[] notes = new int[] {gNote, gNote, dNote, dNote, eNote, dNote};
-        stressInducingSong = new Song(stressInducingNotes, stressInducingDelays);
     }
 
     private void loadSoundPool() {
@@ -80,10 +99,9 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         fsharpNote = soundPool.load(this, R.raw.scalefs,1);
         gNote = soundPool.load(this, R.raw.scaleg,1);
         gsharpNote = soundPool.load(this, R.raw.scalegs,1);
-        //eNote = soundPool.load(this, R.raw.scalee,1);
-        loaded = true;
+        //loaded = true;
 
-        noteMap = new HashMap<>();
+        /*noteMap = new HashMap<>();
         noteMap.put(buttonA.getId(), aNote);
         noteMap.put(buttonB.getId(), bNote);
         noteMap.put(buttonBflat.getId(), bflatNote);
@@ -95,8 +113,8 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         noteMap.put(buttonF.getId(), fNote);
         noteMap.put(buttonFsharp.getId(), fsharpNote);
         noteMap.put(buttonG.getId(), gNote);
-        noteMap.put(buttonGsharp.getId(), gsharpNote);
-
+        noteMap.put(buttonGsharp.getId(), gsharpNote);*/
+        loaded = true;
     }
 
 
@@ -117,6 +135,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong1.setOnClickListener(this);
         buttonSong2.setOnClickListener(this);
         buttonSong3.setOnClickListener(this);
+        buttonScale.setOnClickListener(this);
     }
 
     private void delay(int millisDelay) {
@@ -143,6 +162,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong1 = findViewById(R.id.button_main_song1);
         buttonSong2 = findViewById(R.id.button_main_song2);
         buttonSong3 = findViewById(R.id.button_main_song3);
+        buttonScale = findViewById(R.id.button_main_scale);
     }
 
 
@@ -152,22 +172,34 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         {
             case R.id.button_main_song1: {
                 if(loaded) {
-                    for (int s = 0; s < stressInducingSong.getNotes().length; s++){
-                        //delay(50);
-                        soundPool.play(stressInducingSong.play(s), 1, 1, 1, 0, 1f);
-                        delay(stressInducingDelays[s]);}
+                    for (int s = 0; s < stressInducingNotes.length; s++) {
+                        soundPool.play(stressInducingNotes[s], 1, 1, 1, 0, 1f);
+                        delay(stressInducingSong.getDelay(s));
+                    }
                 }
                 break;}
-            //case R.id.button_main_song2: {
-               //if(loaded){
-
-
-                //stressInducingSong.play();
-                //break;     }
-
+            case R.id.button_main_song2: {
+                if (loaded) {
+                    for (int s = 0; s < thisIsHalloweenNotes.length; s++) {
+                        soundPool.play(thisIsHalloweenNotes[s], 1, 1, 1, 0, 1f);
+                        delay(thisIsHalloween.getDelay(s));
+                    }
+                }
+                break;
+            }
             case R.id.button_main_song3: {
                 soundPool.play(bflatNote, 1, 1, 1, 0, 1f);
                 break;}
+
+            case R.id.button_main_scale:{
+                if(loaded){
+                    for(int s = 0; s < 13; s++)
+                    {
+                        soundPool.play(notes[s], 1,1,1,0,1f);
+                        delay(2000);
+                    }
+                }
+            }
         }}
 
 
