@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.media.SoundPool.OnLoadCompleteListener;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
@@ -33,6 +35,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong2;
     private Button buttonSong3;
     private Button buttonScale;
+    private Button buttonRecord;
     private int aNote;
     private int bNote;
     private int bflatNote;
@@ -136,6 +139,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong2.setOnClickListener(this);
         buttonSong3.setOnClickListener(this);
         buttonScale.setOnClickListener(this);
+        buttonRecord.setOnClickListener(this);
     }
 
     private void delay(int millisDelay) {
@@ -163,6 +167,8 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong2 = findViewById(R.id.button_main_song2);
         buttonSong3 = findViewById(R.id.button_main_song3);
         buttonScale = findViewById(R.id.button_main_scale);
+        buttonRecord=findViewById(R.id.button_main_record);
+
     }
 
 
@@ -199,6 +205,9 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                         delay(2000);
                     }
                 }
+            }
+            case R.id.button_main_record: {
+
             }
         }}
 

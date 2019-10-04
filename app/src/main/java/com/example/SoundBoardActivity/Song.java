@@ -22,13 +22,8 @@ public class Song {
 
     public Song(int[] n, int[] d)
     {
-        notes = new int[] {gNote, gNote, dNote, dNote, eNote, eNote, dNote, cNote,
-                cNote,bNote,bNote,aNote, aNote, gNote, dNote,dNote,cNote,cNote,bNote,bNote,
-                aNote,dNote, dNote,cNote,cNote,bNote,bNote,aNote,gNote,gNote,dNote,dNote,
-                eNote,eNote,dNote,cNote,cNote,bNote,bNote,aNote,aNote,gNote};
-        delay = new int[] {500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,
-                500,500,500,500,500,500,1000,500,500,500,500,500,500,1000,500,500,500,
-                500,500,500,1000,500,500,500,500,500,500,1000};
+        notes = n;
+        delay = n;
     }
 
     public int getDelay(int space)
