@@ -2,6 +2,7 @@ package com.example.SoundBoardActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -14,7 +15,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -36,6 +39,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
     private Button buttonSong3;
     private Button buttonScale;
     private Button buttonRecord;
+    private Button buttonPlayBack;
     private int aNote;
     private int bNote;
     private int bflatNote;
@@ -51,7 +55,9 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
 
     private SoundPool soundPool;
     private boolean loaded;
+    private boolean isRecord;
     private Map<Integer,Integer> noteMap;
+    private List<Note> playBack = new ArrayList<>();
     private int[] stressInducingNotes;
     private int[] stressInducingDelays;
     private Song stressInducingSong;
@@ -67,6 +73,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sounds);
         wireWidgets();
         loaded = false;
+        isRecord=false;
 
         loadSoundPool();
         stressInducingNotes = new int[] {gNote, gNote, dNote, dNote, eNote, eNote, dNote, cNote,
@@ -104,7 +111,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         gsharpNote = soundPool.load(this, R.raw.scalegs,1);
         //loaded = true;
 
-        /*noteMap = new HashMap<>();
+        noteMap = new HashMap<>();
         noteMap.put(buttonA.getId(), aNote);
         noteMap.put(buttonB.getId(), bNote);
         noteMap.put(buttonBflat.getId(), bflatNote);
@@ -116,7 +123,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         noteMap.put(buttonF.getId(), fNote);
         noteMap.put(buttonFsharp.getId(), fsharpNote);
         noteMap.put(buttonG.getId(), gNote);
-        noteMap.put(buttonGsharp.getId(), gsharpNote);*/
+        noteMap.put(buttonGsharp.getId(), gsharpNote);
         loaded = true;
     }
 
@@ -140,6 +147,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong3.setOnClickListener(this);
         buttonScale.setOnClickListener(this);
         buttonRecord.setOnClickListener(this);
+        buttonPlayBack.setOnClickListener(this);
     }
 
     private void delay(int millisDelay) {
@@ -168,6 +176,7 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
         buttonSong3 = findViewById(R.id.button_main_song3);
         buttonScale = findViewById(R.id.button_main_scale);
         buttonRecord=findViewById(R.id.button_main_record);
+        buttonPlayBack=findViewById(R.id.button_main_playBack);
 
     }
 
@@ -206,7 +215,25 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             }
+            case R.id.button_main_playBack:{
+                for(Note note: playBack)
+                {
+                    soundPool.play(note.getSoundId(), 1,1,0,0,1f);
+                    delay(500);
+                }
+            }
             case R.id.button_main_record: {
+                if(isRecord)
+                {
+                    isRecord = false;
+                    buttonRecord.setText("RECORD");
+                }
+                else
+                {
+                    isRecord = true;
+                    buttonRecord.setText("RECORDING");
+                }
+                break;
 
             }
         }}
@@ -220,6 +247,11 @@ public class SoundsActivity extends AppCompatActivity implements View.OnClickLis
                 int songId = noteMap.get(view.getId());
                 if(songId != 0){
                     soundPool.play(songId,1,1,1,0,1f);
+                }
+                if(isRecord)
+                {
+                    playBack.add(new Note(songId, 500));
+
                 }
             }
         }
